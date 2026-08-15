@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./Resources/rl-logo.png" type="image/x-icon">
+</head>
+<body>
+    <container>
+        <form>
+            <h2>Add New Transaction</h2>
+            <label for="amount-input">Amount</label>
+            <input type="number" id="amount-input" name="amount" placeholder="$12,500" required>
+
+            <label for="categories">Categories</label>
+            <select name="categories" id="categories">
+                <option value="">Rent, Groceries, Utilities....</option>
+                <option value="transport">Transport</option>
+                <option value="mobile data">Mobile Data</option>
+                <option value="airtime">Airtime</option>
+                <option value="food">Food</option>
+                <option value="groceries">groceries</option>
+            </select>
+
+            <label for="income">Income</label>
+            <input type="radio" name="income" id="income">
+
+            <label for="expense">Expense</label>
+            <input type="radio" name="expense" id="expense">
+
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date">
+
+            <button type="submit">Save Transaction</button>
+
+        </form>
+
+        <div id="list-container">
+            
+        </div>
+
+    </container>
+    <script src="script.js"></script>
+</body>
+</html>

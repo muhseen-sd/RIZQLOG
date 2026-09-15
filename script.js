@@ -20,6 +20,7 @@ form.addEventListener("submit", (event) => {
     }
 
     transactions.push(transactionObj);
+    saveTransactions()
     renderTransactions();
     form.reset()
 
@@ -58,5 +59,24 @@ function deleteTransaction(id){
             transactions.length = 0;
             transactions.push(...updatedTransactions)
 
+            saveTransactions()
             renderTransactions()
     }
+
+    // Saving function
+    function saveTransactions() {
+        localStorage.setItem("transactions", JSON.stringify(transactions))
+    }
+
+    // Load from local storage when page opens
+    function loadTransactions(){
+        
+            const storedTransactions  = localStorage.getItem("transactions");
+            if (!storedTransactions) return
+            
+            const parsedTransactions = JSON.parse(storedTransactions);
+            transactions.push(...parsedTransactions)
+}
+
+    loadTransactions()
+    renderTransactions()

@@ -2,6 +2,9 @@ const transactions = []
 
 const list = document.getElementById("transaction-list")
 const form = document.getElementById("transaction-form")
+const totalIncome = document.getElementById("total-income")
+const totalExpense = document.getElementById("total-expense")
+const balance = document.getElementById("balance")
 
 form.addEventListener("submit", (event) => {
     event.preventDefault()
@@ -22,6 +25,7 @@ form.addEventListener("submit", (event) => {
     transactions.push(transactionObj);
     saveTransactions()
     renderTransactions();
+    updateSummary()
     form.reset()
 
     console.log("Submitted Transaction:", transactionObj );
@@ -33,7 +37,7 @@ function renderTransactions(){
 
     transactions.forEach(trans => {
         const li = document.createElement("li")
-        li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | $${trans.amount}`
+        li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | ${formatCurrency(trans.amount)}`
         
         // creating a delete button
         const deleteBtn = document.createElement("button")
@@ -61,6 +65,7 @@ function deleteTransaction(id){
 
             saveTransactions()
             renderTransactions()
+            updateSummary()
     }
 
     // Saving function
@@ -69,8 +74,7 @@ function deleteTransaction(id){
     }
 
     // Load from local storage when page opens
-    function loadTransactions(){
-        
+    function loadTransactions(){       
             const storedTransactions  = localStorage.getItem("transactions");
             if (!storedTransactions) return
             
@@ -78,5 +82,33 @@ function deleteTransaction(id){
             transactions.push(...parsedTransactions)
 }
 
-    loadTransactions()
+    loadTransactions()  
     renderTransactions()
+    updateSummary()
+
+    function updateSummary(){
+        let income = 0;
+        let expense = 0;
+
+        transactions.filter((trans) => {
+            if (trans.type === "income"){
+                income += trans.amount
+            } else if (trans.type === "expense"){
+                expense += trans.amount
+            }
+        });
+
+        const currentBalance = income - expense;
+
+        totalIncome.textContent = `Total Income: ${formatCurrency(income)}`
+        totalExpense.textContent = `Total Expense: ${formatCurrency(expense)}`
+        balance.textContent = `Balance: ${formatCurrency(currentBalance)}`
+}
+
+function formatCurrency(value){
+    return value.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+
+    });
+}

@@ -14,9 +14,25 @@ form.addEventListener("submit", (event) => {
     const typeValue = document.querySelector('input[name=type]:checked')?.value;
     const dateValue = document.getElementById("date").value;
 
+    const amountNumber = Number(amountValue)
+    if (Number.isNaN(amountNumber) || amountNumber <= 0){
+        alert("Please enter a valid amount greater than 0.")
+        return
+    }
+    
+    if (!typeValue){
+        alert("The type is invalid!")
+        return
+    } 
+    
+    if (!dateValue){
+        alert("Please choose a date!")
+        return
+    }
+
     const transactionObj = {
         id: Date.now(),
-        amount: Number(amountValue),
+        amount: amountNumber,
         category: categoryValue,
         type: typeValue,
         date: dateValue,
@@ -34,6 +50,14 @@ form.addEventListener("submit", (event) => {
 
 function renderTransactions(){
     list.innerHTML = "";
+
+    if (transactions.length === 0){
+        let notify = document.createElement("li")
+        notify.textContent = `No transactions yet.`;
+        list.append(notify);
+
+        return;
+    }
 
     transactions.forEach(trans => {
         const li = document.createElement("li")

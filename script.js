@@ -7,8 +7,10 @@ const totalExpense = document.getElementById("total-expense")
 const balance = document.getElementById("balance")
 
 form.addEventListener("submit", (event) => {
+    //prevent default submission
     event.preventDefault()
 
+    // Getting he input values from the form and assigned each to a variable 
     const amountValue = document.getElementById("amount-input").value;
     const categoryValue = document.getElementById("category-select").value;
     const typeValue = document.querySelector('input[name=type]:checked')?.value;
@@ -36,17 +38,20 @@ function renderTransactions(){
     list.innerHTML = "";
 
     if(transactions.length === 0) {
+        // Create a new element to display the No transanction message.
         const notify = document.createElement("li");
         notify.textContent = "No transactions yet.";
+        notify.classList.add("empty-state")
         list.append(notify)
         return;
     }
 
     transactions.forEach(trans => {
+        // Create an element for dispalying the list.
         const li = document.createElement("li")
         li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | $${trans.amount}`
         
-        // creating a delete button
+        // creating a delete button and giving it a name
         const deleteBtn = document.createElement("button")
         deleteBtn.textContent = "Delete"
 
@@ -62,6 +67,7 @@ function renderTransactions(){
 
 }
 
+// The function for deleting the transaction
 function deleteTransaction(id){
             const updatedTransactions = transactions.filter(trans => {
                return trans.id !== id
@@ -75,7 +81,7 @@ function deleteTransaction(id){
             updateSummary()
     }
 
-    // Saving function
+    // Saving transaction to a local storage
     function saveTransactions() {
         localStorage.setItem("transactions", JSON.stringify(transactions))
     }

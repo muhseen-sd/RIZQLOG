@@ -29,7 +29,8 @@ form.addEventListener("submit", (event) => {
     renderTransactions();
     updateSummary()
     form.reset()
-
+    dateInput.value = todayString;
+    
     console.log("Submitted Transaction:", transactionObj );
     console.log("All Transactions:", transactions)
 })
@@ -103,7 +104,7 @@ function deleteTransaction(id){
         let income = 0;
         let expense = 0;
 
-        transactions.filter((trans) => {
+        transactions.forEach((trans) => {
             if (trans.type === "income"){
                 income += trans.amount
             } else if (trans.type === "expense"){

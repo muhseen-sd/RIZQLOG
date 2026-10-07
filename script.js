@@ -10,10 +10,10 @@ form.addEventListener("submit", (event) => {
     //prevent default submission
     event.preventDefault()
 
-    // Getting he input values from the form and assigned each to a variable 
+    // Getting the input values from the form and assigned each to a variable 
     const amountValue = document.getElementById("amount-input").value;
     const categoryValue = document.getElementById("category-select").value;
-    const typeValue = document.querySelector('input[name=type]:checked')?.value;
+    const typeValue = document.querySelector('input[name=type]:checked')?.value; 
     const dateValue = document.getElementById("date").value;
 
     const transactionObj = {
@@ -80,7 +80,7 @@ function deleteTransaction(id){
             saveTransactions()
             renderTransactions()
             updateSummary()
-    }
+    } 
 
     // Saving transaction to a local storage
     function saveTransactions() {

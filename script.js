@@ -35,6 +35,13 @@ form.addEventListener("submit", (event) => {
     console.log("All Transactions:", transactions)
 })
 
+function formatCurrency(amount){
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+    }).format(amount)
+}
+
 function renderTransactions(){
     list.innerHTML = "";
 
@@ -50,7 +57,8 @@ function renderTransactions(){
     transactions.forEach(trans => {
         // Create an element for dispalying the list.
         const li = document.createElement("li")
-        li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | $${trans.amount}`
+        // li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | $${trans.amount}`
+        li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | ${formatCurrency(trans.amount)}` //The one with formated currency 
         
         // creating a delete button and giving it a name
         const deleteBtn = document.createElement("button")

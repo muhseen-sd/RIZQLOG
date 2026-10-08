@@ -111,22 +111,43 @@ function deleteTransaction(id){
     updateSummary()
 
     function updateSummary(){
-        let income = 0;
-        let expense = 0;
+        
+        // Initially i used forEach, but I later used reduce()
 
-        transactions.forEach((trans) => {
-            if (trans.type === "income"){
-                income += trans.amount
-            } else if (trans.type === "expense"){
-                expense += trans.amount
+        // let income = 0;
+        // let expense = 0;
+
+
+        // transactions.forEach((trans) => {
+        //     if (trans.type === "income"){
+        //         income += trans.amount
+        //     } else if (trans.type === "expense"){
+        //         expense += trans.amount
+        //     }
+        // });
+
+        const income = transactions.reduce((total, transaction) => {
+            if (transaction.type === "income") {
+                return total + transaction.amount;
             }
-        });
+
+            return total;
+        }, 0);
+
+
+        const expense = transactions.reduce((total, transaction) => {
+            if (transaction.type === "expense"){
+                return total + transaction.amount
+            }
+
+            return total
+        }, 0)
 
         const currentBalance = income - expense;
 
-        totalIncome.textContent = `Total Income: $${income}`
-        totalExpense.textContent = `Total Expense: $${expense}`
-        balance.textContent = `Balance: $${currentBalance}`
+        totalIncome.textContent = `Total Income: ${formatCurrency(income)}`
+        totalExpense.textContent = `Total Expense: ${formatCurrency(expense)}`
+        balance.textContent = `Balance: ${formatCurrency(currentBalance)}`
 }
 
 const todayDate = new Date()

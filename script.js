@@ -5,6 +5,8 @@ const form = document.getElementById("transaction-form")
 const totalIncome = document.getElementById("total-income")
 const totalExpense = document.getElementById("total-expense")
 const balance = document.getElementById("balance")
+const clearAllBtn = document.getElementById("clear-all-btn")
+
 
 form.addEventListener("submit", (event) => {
     //prevent default submission
@@ -131,3 +133,13 @@ const todayDate = new Date()
 const todayString = todayDate.toISOString().split("T")[0];
 const dateInput = document.getElementById("date");
 dateInput.value =  todayString;
+
+
+// Delet all transactions event listerner
+
+clearAllBtn.addEventListener("click", () => {
+    transactions.length = 0
+    saveTransactions()
+    renderTransactions()
+    updateSummary()
+})

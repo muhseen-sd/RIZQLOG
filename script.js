@@ -57,7 +57,7 @@ function renderTransactions(){
     transactions.forEach(trans => {
         // Create an element for dispalying the list.
         const li = document.createElement("li")
-        // li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | $${trans.amount}`
+        // li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | $${trans.amount}`    The initial one
         li.textContent = `${trans.date} | ${trans.category} | ${trans.type} | ${formatCurrency(trans.amount)}` //The one with formated currency 
         
         // creating a delete button and giving it a name
